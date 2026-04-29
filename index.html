@@ -1,0 +1,1616 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>POLARIS RP — Serious Roleplay · San Andreas</title>
+<meta name="description" content="Polaris RP — serveur GTA V Serious Roleplay. Vivez San Andreas comme jamais auparavant. Whitelist ouverte.">
+<link rel="icon" type="image/png" href="images/polarislogo.png">
+<link rel="apple-touch-icon" href="images/polarislogo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,800;0,9..144,900;1,9..144,300;1,9..144,400&family=JetBrains+Mono:wght@300;400;500;700&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+    :root {
+        /* PALETTE: Violet Sombre & Orange Léger */
+        --bg: #110919;
+        --bg-2: #1b0f26;
+        --bg-3: #271638;
+        --ink: #fcf8ff;
+        --ink-dim: #bbaec8;
+        --ink-faint: #736285;
+        --accent: #ffa94d;
+        --accent-warm: #ffc078;
+        --accent-red: #ff4d6d;
+        --discord: #5865F2;
+        --discord-hover: #4752C4;
+        --line: rgba(252, 248, 255, 0.08);
+        --line-strong: rgba(252, 248, 255, 0.18);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+        background: var(--bg);
+        color: var(--ink);
+        font-family: 'Inter Tight', sans-serif;
+        font-weight: 400;
+        line-height: 1.5;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 9999;
+        opacity: 0.35;
+        mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.6 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    }
+
+    body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 9998;
+        background: repeating-linear-gradient(
+            0deg,
+            rgba(0,0,0,0) 0px,
+            rgba(0,0,0,0) 2px,
+            rgba(0,0,0,0.04) 3px,
+            rgba(0,0,0,0) 4px
+        );
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* NAVIGATION */
+    .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        padding: 22px 48px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        backdrop-filter: blur(16px);
+        background: linear-gradient(180deg, rgba(17, 9, 25, 0.9) 0%, rgba(17, 9, 25, 0.2) 100%);
+        border-bottom: 1px solid var(--line);
+        transition: background 0.3s ease, padding 0.3s ease;
+    }
+    
+    .nav.scrolled {
+        background: rgba(17, 9, 25, 0.95);
+        padding: 16px 48px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .logo {
+        font-family: 'Fraunces', serif;
+        font-weight: 900;
+        font-size: 22px;
+        letter-spacing: -0.02em;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .logo-img {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        object-fit: cover;
+        filter: drop-shadow(0 0 12px rgba(255, 169, 77, 0.4));
+        transition: transform 0.4s ease, filter 0.4s ease;
+    }
+    .logo:hover .logo-img {
+        transform: rotate(-12deg) scale(1.05);
+        filter: drop-shadow(0 0 16px rgba(255, 169, 77, 0.7));
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 28px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--ink-dim);
+        align-items: center;
+    }
+    .nav-links a.scroll-link { position: relative; transition: color 0.3s ease; }
+    .nav-links a.scroll-link:hover { color: var(--ink); }
+    .nav-links a.scroll-link::after {
+        content: "";
+        position: absolute;
+        bottom: -6px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: var(--accent);
+        transition: width 0.3s ease;
+    }
+    .nav-links a.scroll-link:hover::after { width: 100%; }
+
+    .nav-cta {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        padding: 10px 18px;
+        border: 1px solid var(--line-strong);
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .nav-cta:hover {
+        background: var(--accent);
+        color: var(--bg);
+        border-color: var(--accent);
+    }
+    
+    .nav-cta.discord {
+        border-color: var(--discord);
+        color: var(--discord);
+    }
+    .nav-cta.discord:hover {
+        background: var(--discord);
+        color: #fff;
+    }
+
+    .mobile-toggle {
+        display: none;
+        background: none;
+        border: none;
+        color: var(--ink);
+        font-size: 24px;
+        cursor: pointer;
+        z-index: 1001;
+    }
+
+    /* HERO & VIDEO BACKGROUND */
+    .hero {
+        min-height: 100vh;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 0 48px 80px;
+        overflow: hidden;
+    }
+    .hero-video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+        filter: saturate(0.85) contrast(1.05);
+    }
+    .hero-overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        background:
+            linear-gradient(180deg, rgba(17,9,25,0.4) 0%, rgba(17,9,25,0.6) 50%, rgba(17,9,25,0.95) 100%),
+            linear-gradient(90deg, rgba(17,9,25,0.7) 0%, rgba(17,9,25,0.2) 40%, rgba(17,9,25,0.4) 100%);
+    }
+    .hero-grid {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        background-image:
+            linear-gradient(var(--line) 1px, transparent 1px),
+            linear-gradient(90deg, var(--line) 1px, transparent 1px);
+        background-size: 80px 80px;
+        mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 90%);
+        opacity: 0.3;
+    }
+    .hero-content {
+        position: relative;
+        z-index: 3;
+        max-width: 1400px;
+    }
+    .hero-logo-mark {
+        width: 88px;
+        height: 88px;
+        border-radius: 50%;
+        margin-bottom: 32px;
+        object-fit: cover;
+        filter: drop-shadow(0 0 24px rgba(255, 169, 77, 0.5));
+        animation: fadeUp 1.2s ease 0s backwards, floatLogo 6s ease-in-out infinite 1.4s;
+    }
+    @keyframes floatLogo {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-6px); }
+    }
+    
+    .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 12px;
+        background: rgba(17, 9, 25, 0.6);
+        border: 1px solid var(--line-strong);
+        border-radius: 20px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        letter-spacing: 0.1em;
+        color: var(--ink);
+        backdrop-filter: blur(8px);
+        margin-bottom: 24px;
+        animation: fadeUp 1.2s ease 0.1s backwards;
+    }
+    
+    .hero-meta {
+        display: flex;
+        gap: 32px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--ink-dim);
+        margin-bottom: 32px;
+        animation: fadeUp 1.2s ease 0.2s backwards;
+        flex-wrap: wrap;
+    }
+    .hero-meta span { display: flex; align-items: center; gap: 8px; }
+    .pulse-dot {
+        width: 8px;
+        height: 8px;
+        background: var(--accent);
+        border-radius: 50%;
+        box-shadow: 0 0 12px var(--accent);
+        animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.6; transform: scale(1.2); }
+    }
+    .hero h1 {
+        font-family: 'Fraunces', serif;
+        font-weight: 300;
+        font-size: clamp(56px, 11vw, 180px);
+        line-height: 0.92;
+        letter-spacing: -0.04em;
+        margin-bottom: 24px;
+        animation: fadeUp 1.4s ease 0.4s backwards;
+    }
+    .hero h1 .italic {
+        font-style: italic;
+        font-weight: 400;
+        background: linear-gradient(180deg, var(--ink) 0%, var(--accent) 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .hero-tagline {
+        font-family: 'Fraunces', serif;
+        font-style: italic;
+        font-size: clamp(18px, 2vw, 26px);
+        max-width: 620px;
+        color: var(--ink);
+        font-weight: 300;
+        margin-bottom: 48px;
+        animation: fadeUp 1.4s ease 0.6s backwards;
+        text-shadow: 0 2px 24px rgba(0,0,0,0.8);
+    }
+    .hero-cta-row {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        animation: fadeUp 1.4s ease 0.8s backwards;
+        flex-wrap: wrap;
+    }
+    
+    .btn-primary {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 12px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        padding: 18px 32px;
+        background: var(--accent);
+        color: var(--bg);
+        border: none;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        font-weight: 600;
+        display: inline-flex;
+    }
+    .btn-primary::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--accent-warm);
+        transform: translateY(100%);
+        transition: transform 0.3s ease;
+    }
+    .btn-primary span { position: relative; z-index: 1; transition: color 0.3s ease; }
+    .btn-primary:hover::before { transform: translateY(0); }
+    .btn-primary:hover span { color: var(--bg); }
+
+    .btn-discord-fill {
+        background: var(--discord);
+        color: #fff;
+    }
+    .btn-discord-fill::before { background: var(--discord-hover); }
+    .btn-discord-fill:hover span { color: #fff; }
+    
+    .btn-ghost {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 12px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        padding: 18px 32px;
+        color: var(--ink);
+        border: 1px solid var(--line-strong);
+        background: rgba(17,9,25,0.4);
+        backdrop-filter: blur(8px);
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .btn-ghost:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+    }
+    .btn-ghost .arrow { transition: transform 0.3s ease; }
+    .btn-ghost:hover .arrow { transform: translateX(4px); }
+
+    @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .side-label {
+        position: absolute;
+        right: 32px;
+        top: 50%;
+        transform: translateY(-50%) rotate(90deg);
+        transform-origin: right center;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: var(--ink-dim);
+        z-index: 3;
+    }
+
+    /* MARQUEE */
+    .marquee {
+        background: var(--ink);
+        color: var(--bg);
+        padding: 24px 0;
+        overflow: hidden;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        position: relative;
+        z-index: 5;
+    }
+    .marquee-track {
+        display: flex;
+        gap: 48px;
+        white-space: nowrap;
+        animation: scroll 40s linear infinite;
+        font-family: 'Fraunces', serif;
+        font-style: italic;
+        font-size: 32px;
+        font-weight: 400;
+    }
+    .marquee-track span { display: flex; align-items: center; gap: 48px; }
+    .marquee-track .star {
+        width: 12px;
+        height: 12px;
+        background: var(--bg);
+        clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    }
+    @keyframes scroll {
+        from { transform: translateX(0); }
+        to { transform: translateX(-50%); }
+    }
+
+    section { position: relative; }
+
+    .section-header {
+        display: flex;
+        align-items: baseline;
+        gap: 24px;
+        padding: 0 48px;
+        margin-bottom: 64px;
+    }
+    .section-num {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        color: var(--accent);
+    }
+    .section-label {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--ink-dim);
+        flex: 1;
+    }
+    .section-divider { flex: 1; height: 1px; background: var(--line); }
+
+    /* VISION */
+    .vision { padding: 140px 0; position: relative; }
+    .vision-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.4fr;
+        gap: 80px;
+        padding: 0 48px;
+        align-items: start;
+    }
+    .vision-title {
+        font-family: 'Fraunces', serif;
+        font-weight: 300;
+        font-size: clamp(40px, 5vw, 72px);
+        line-height: 1;
+        letter-spacing: -0.03em;
+    }
+    .vision-title em { font-style: italic; color: var(--accent); font-weight: 400; }
+    .vision-text { font-size: 19px; line-height: 1.65; color: var(--ink-dim); max-width: 640px; }
+    .vision-text p + p { margin-top: 24px; }
+    .vision-text strong { color: var(--ink); font-weight: 500; }
+
+    /* LORE SECTION */
+    .lore-list { margin-top: 32px; list-style: none; }
+    .lore-list li {
+        position: relative;
+        padding-left: 24px;
+        margin-bottom: 20px;
+        color: var(--ink-dim);
+        font-size: 16px;
+        line-height: 1.6;
+    }
+    .lore-list li::before {
+        content: "■";
+        position: absolute;
+        left: 0;
+        top: 2px;
+        color: var(--accent-red);
+        font-size: 12px;
+    }
+    .lore-list strong { color: var(--ink); font-weight: 500; }
+
+/* PILLARS - DESIGN EN CARTES */
+.pillars {
+        padding: 120px 48px;
+        background: var(--bg-2);
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+    }
+    .pillars-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 32px;
+        margin-top: 64px;
+        max-width: 1400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .pillar {
+        background: var(--bg);
+        padding: 48px 40px;
+        border: 1px solid var(--line);
+        position: relative;
+        transition: all 0.4s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .pillar::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: var(--accent);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.4s ease;
+    }
+    .pillar:hover {
+        transform: translateY(-8px);
+        border-color: var(--line-strong);
+        box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+    }
+    .pillar:hover::before {
+        transform: scaleX(1);
+    }
+    .pillar-num {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        color: var(--accent);
+        margin-bottom: 32px;
+    }
+    .pillar-icon {
+        width: 48px;
+        height: 48px;
+        margin-bottom: 32px;
+        stroke: var(--accent);
+        stroke-width: 1.2;
+        fill: none;
+    }
+    .pillar h3 {
+        font-family: 'Fraunces', serif;
+        font-style: italic;
+        font-weight: 400;
+        font-size: 32px;
+        line-height: 1.1;
+        margin-bottom: 16px;
+        letter-spacing: -0.02em;
+    }
+    .pillar p { 
+        color: var(--ink-dim); 
+        font-size: 15px; 
+        line-height: 1.6; 
+    }
+
+    /* À RAJOUTER DANS TON @media (max-width: 968px) POUR LES MOBILES */
+    @media (max-width: 968px) {
+        .pillars { padding: 80px 24px; }
+        .pillars-grid { grid-template-columns: 1fr; gap: 24px; }
+        .pillar { padding: 40px 24px; border: 1px solid var(--line); }
+    }
+    /* EXPERIENCE & LORE LAYOUT */
+    .experience { padding: 140px 0 0; }
+    .exp-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+        align-items: stretch;
+        border-top: 1px solid var(--line);
+    }
+    .exp-row:last-child { border-bottom: 1px solid var(--line); }
+    .exp-row:nth-child(even) { direction: rtl; }
+    .exp-row:nth-child(even) > * { direction: ltr; }
+    .exp-text {
+        padding: 80px 48px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-right: 1px solid var(--line);
+    }
+    .exp-row:nth-child(even) .exp-text { border-right: none; border-left: 1px solid var(--line); }
+    .exp-num {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 0.25em;
+        color: var(--accent);
+        margin-bottom: 24px;
+    }
+    .exp-text h3 {
+        font-family: 'Fraunces', serif;
+        font-weight: 300;
+        font-size: clamp(36px, 4vw, 56px);
+        line-height: 1;
+        letter-spacing: -0.02em;
+        margin-bottom: 24px;
+    }
+    .exp-text h3 em { font-style: italic; color: var(--accent); }
+    .exp-text p { color: var(--ink-dim); font-size: 17px; line-height: 1.6; max-width: 480px; }
+    .exp-visual { position: relative; min-height: 520px; background: var(--bg-2); overflow: hidden; }
+    .exp-visual img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 1.2s ease;
+    }
+    .exp-visual:hover img { transform: scale(1.04); }
+    .exp-visual::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        background: linear-gradient(180deg, rgba(17,9,25,0) 60%, rgba(17,9,25,0.4) 100%);
+        pointer-events: none;
+    }
+    .exp-caption {
+        position: absolute;
+        bottom: 24px;
+        left: 24px;
+        z-index: 3;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--ink);
+        background: rgba(17,9,25,0.7);
+        backdrop-filter: blur(6px);
+        padding: 8px 14px;
+        border: 1px solid var(--line-strong);
+    }
+
+    /* FEATURES */
+    .features {
+        padding: 140px 0;
+        background: var(--bg-2);
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+    }
+    .features-intro { max-width: 800px; padding: 0 48px; margin-bottom: 80px; }
+    .features-intro h2 {
+        font-family: 'Fraunces', serif;
+        font-weight: 300;
+        font-size: clamp(40px, 5vw, 72px);
+        line-height: 1;
+        letter-spacing: -0.03em;
+        margin-bottom: 24px;
+    }
+    .features-intro h2 em { font-style: italic; color: var(--accent); }
+    .features-intro p { font-size: 18px; color: var(--ink-dim); line-height: 1.6; }
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1px;
+        background: var(--line);
+        margin: 0 48px;
+    }
+    .feature-card {
+        background: var(--bg);
+        padding: 0;
+        position: relative;
+        overflow: hidden;
+        min-height: 480px;
+        display: flex;
+        flex-direction: column;
+    }
+    .feature-image { position: relative; flex: 1; overflow: hidden; background: #000; min-height: 280px; }
+    .feature-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.8s ease, filter 0.8s ease;
+        filter: saturate(0.9);
+    }
+    .feature-card:hover .feature-image img { transform: scale(1.05); filter: saturate(1.1); }
+    .feature-info {
+        padding: 28px 32px 32px;
+        background: var(--bg);
+        border-top: 1px solid var(--line);
+        position: relative;
+        z-index: 2;
+    }
+    .feature-tag {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 12px;
+    }
+    .feature-info h4 {
+        font-family: 'Fraunces', serif;
+        font-style: italic;
+        font-weight: 400;
+        font-size: 28px;
+        letter-spacing: -0.02em;
+        margin-bottom: 12px;
+    }
+    .feature-info p { color: var(--ink-dim); font-size: 15px; line-height: 1.55; }
+
+    /* GALLERY */
+    .gallery {
+        padding: 140px 0;
+        background: var(--bg);
+        overflow: hidden;
+    }
+    .gallery-track {
+        display: flex;
+        gap: 24px;
+        padding: 0 48px;
+        animation: gallerySlide 60s linear infinite;
+        width: max-content;
+    }
+    .gallery-track:hover { animation-play-state: paused; }
+    @keyframes gallerySlide {
+        from { transform: translateX(0); }
+        to { transform: translateX(-50%); }
+    }
+    .gallery-item {
+        flex: 0 0 auto;
+        width: 480px;
+        height: 320px;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid var(--line);
+    }
+    .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s ease;
+    }
+    .gallery-item:hover img { transform: scale(1.05); }
+    .gallery-item::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, transparent 60%, rgba(17,9,25,0.7) 100%);
+    }
+    .gallery-caption {
+        position: absolute;
+        bottom: 16px;
+        left: 16px;
+        z-index: 2;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--ink);
+    }
+    .gallery-caption-num { color: var(--accent); margin-right: 12px; }
+
+    /* STATS */
+    .stats {
+        padding: 100px 48px;
+        text-align: center;
+        background: linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 50%, var(--bg) 100%);
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+    }
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+    .stat { padding: 32px; border-right: 1px solid var(--line); }
+    .stat:last-child { border-right: none; }
+    .stat-num {
+        font-family: 'Fraunces', serif;
+        font-weight: 300;
+        font-size: 72px;
+        line-height: 1;
+        letter-spacing: -0.04em;
+        color: var(--ink);
+        margin-bottom: 12px;
+    }
+    .stat-num em { color: var(--accent); font-style: italic; }
+    .stat-label {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--ink-dim);
+    }
+
+    /* CHARACTER */
+    .character { padding: 140px 48px; position: relative; }
+    .character-quote {
+        font-family: 'Fraunces', serif;
+        font-style: italic;
+        font-weight: 300;
+        font-size: clamp(32px, 4.5vw, 64px);
+        line-height: 1.15;
+        letter-spacing: -0.02em;
+        max-width: 1100px;
+        margin: 0 auto 80px;
+        text-align: center;
+        position: relative;
+    }
+    .character-quote::before {
+        content: "“";
+        position: absolute;
+        top: -40px;
+        left: -20px;
+        font-size: 180px;
+        color: var(--accent);
+        opacity: 0.3;
+        font-family: 'Fraunces', serif;
+    }
+    .character-quote em {
+        background: linear-gradient(120deg, var(--accent) 0%, var(--accent-warm) 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .character-pillars {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 24px;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+    .char-card {
+        padding: 32px 24px;
+        border: 1px solid var(--line);
+        background: var(--bg-2);
+        transition: all 0.4s ease;
+        position: relative;
+        overflow: hidden;
+    }
+    .char-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: var(--accent);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.4s ease;
+    }
+    .char-card:hover { transform: translateY(-4px); border-color: var(--line-strong); }
+    .char-card:hover::before { transform: scaleX(1); }
+    .char-card-num {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        color: var(--accent);
+        margin-bottom: 24px;
+    }
+    .char-card h4 {
+        font-family: 'Fraunces', serif;
+        font-style: italic;
+        font-weight: 400;
+        font-size: 24px;
+        margin-bottom: 12px;
+        letter-spacing: -0.01em;
+    }
+    .char-card p { color: var(--ink-dim); font-size: 14px; line-height: 1.55; }
+
+    /* FAQ */
+    .faq {
+        padding: 140px 48px;
+        background: var(--bg);
+    }
+    .faq-container {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    .faq-item {
+        border-bottom: 1px solid var(--line);
+        padding: 24px 0;
+        cursor: pointer;
+    }
+    .faq-item summary {
+        font-family: 'Fraunces', serif;
+        font-size: clamp(20px, 3vw, 28px);
+        font-weight: 400;
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: var(--ink);
+        transition: color 0.3s;
+    }
+    .faq-item:hover summary { color: var(--accent); }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after {
+        content: '+';
+        color: var(--accent);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 28px;
+        font-weight: 300;
+        transition: transform 0.4s ease;
+    }
+    .faq-item[open] summary::after { transform: rotate(45deg); }
+    .faq-item p {
+        margin-top: 20px;
+        color: var(--ink-dim);
+        font-size: 16px;
+        line-height: 1.65;
+        padding-right: 40px;
+    }
+
+    /* JOIN */
+    .join {
+        padding: 160px 48px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        border-top: 1px solid var(--line);
+    }
+    .join-bg-image {
+        position: absolute;
+        inset: 0;
+        background-image: url('images/stone-statue.png');
+        background-size: cover;
+        background-position: center;
+        filter: blur(8px) saturate(0.6);
+        opacity: 0.4;
+        transform: scale(1.05);
+    }
+    .join-bg-image::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+            radial-gradient(ellipse 60% 50% at 50% 50%, rgba(255, 169, 77, 0.15) 0%, transparent 60%),
+            linear-gradient(180deg, var(--bg) 0%, rgba(17,9,25,0.85) 50%, var(--bg) 100%);
+    }
+    .join-content { position: relative; z-index: 1; }
+    .join-eyebrow {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 32px;
+    }
+    .join h2 {
+        font-family: 'Fraunces', serif;
+        font-weight: 300;
+        font-size: clamp(48px, 8vw, 120px);
+        line-height: 0.95;
+        letter-spacing: -0.04em;
+        margin-bottom: 32px;
+        max-width: 1100px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .join h2 em {
+        font-style: italic;
+        background: linear-gradient(120deg, var(--accent) 0%, var(--accent-warm) 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .join-sub {
+        font-family: 'Fraunces', serif;
+        font-style: italic;
+        font-size: 20px;
+        color: var(--ink-dim);
+        max-width: 580px;
+        margin: 0 auto 56px;
+        font-weight: 300;
+    }
+    .join-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    /* FOOTER */
+    .footer {
+        padding: 64px 48px 32px;
+        border-top: 1px solid var(--line);
+        background: var(--bg);
+    }
+    .footer-top {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 64px;
+        margin-bottom: 80px;
+    }
+    .footer-brand-row { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+    .footer-logo-img {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        object-fit: cover;
+        filter: drop-shadow(0 0 14px rgba(255, 169, 77, 0.4));
+    }
+    .footer-brand h3 {
+        font-family: 'Fraunces', serif;
+        font-weight: 900;
+        font-size: 32px;
+        margin-bottom: 0;
+        letter-spacing: -0.02em;
+    }
+    .footer-brand p { color: var(--ink-dim); max-width: 320px; line-height: 1.6; font-size: 14px; }
+    .footer-col h5 {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--ink-dim);
+        margin-bottom: 20px;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a { color: var(--ink); font-size: 14px; transition: color 0.3s ease; }
+    .footer-col a:hover { color: var(--accent); }
+    .footer-bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 24px;
+        border-top: 1px solid var(--line);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        letter-spacing: 0.15em;
+        color: var(--ink-faint);
+        text-transform: uppercase;
+    }
+    
+    /* BACK TO TOP BUTTON */
+    .back-to-top {
+        position: fixed;
+        bottom: 32px;
+        right: 32px;
+        width: 48px;
+        height: 48px;
+        background: var(--bg-2);
+        border: 1px solid var(--line-strong);
+        border-radius: 50%;
+        color: var(--accent);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        cursor: pointer;
+        z-index: 999;
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(8px);
+    }
+    .back-to-top.visible { opacity: 1; pointer-events: auto; }
+    .back-to-top:hover { background: var(--accent); color: var(--bg); transform: translateY(-4px); }
+
+    /* RESPONSIVE */
+    @media (max-width: 968px) {
+        .nav { padding: 16px 24px; }
+        .nav-links { 
+            display: none; 
+            position: absolute; 
+            top: 100%; left: 0; right: 0; 
+            background: var(--bg); 
+            flex-direction: column; 
+            padding: 32px 24px; 
+            border-bottom: 1px solid var(--line);
+            align-items: flex-start;
+        }
+        .nav-links.active { display: flex; }
+        .mobile-toggle { display: block; }
+        
+        .logo-img { width: 32px; height: 32px; }
+        .hero { padding: 0 24px 60px; }
+        .hero-logo-mark { width: 64px; height: 64px; margin-bottom: 24px; }
+        .vision-grid { grid-template-columns: 1fr; gap: 40px; padding: 0 24px; }
+        .pillars { padding: 80px 24px; }
+        .pillars-grid { grid-template-columns: 1fr; }
+        .pillar { border-right: none; border-bottom: 1px solid var(--line); padding: 40px 0; }
+        .exp-row, .exp-row:nth-child(even) { grid-template-columns: 1fr; direction: ltr; }
+        .exp-text { padding: 48px 24px; border-right: none; border-bottom: 1px solid var(--line); }
+        .features { padding: 80px 0; }
+        .features-intro { padding: 0 24px; }
+        .features-grid { grid-template-columns: 1fr; margin: 0 24px; }
+        .gallery { padding: 80px 0; }
+        .gallery-track { padding: 0 24px; }
+        .gallery-item { width: 320px; height: 220px; }
+        .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        .stat { border-right: none; border-bottom: 1px solid var(--line); padding: 24px; }
+        .faq { padding: 80px 24px; }
+        .character { padding: 80px 24px; }
+        .character-pillars { grid-template-columns: 1fr 1fr; gap: 12px; }
+        .join { padding: 100px 24px; }
+        .footer { padding: 48px 24px 24px; }
+        .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+        .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+        .section-header { padding: 0 24px; margin-bottom: 40px; }
+        .side-label { display: none; }
+        .marquee-track { font-size: 22px; }
+    }
+    @media (max-width: 540px) {
+        .character-pillars { grid-template-columns: 1fr; }
+        .stats-grid { grid-template-columns: 1fr; }
+        .hero-cta-row { flex-direction: column; align-items: stretch; }
+        .btn-primary, .btn-ghost { width: 100%; justify-content: center; }
+        .gallery-item { width: 280px; height: 180px; }
+        .back-to-top { bottom: 16px; right: 16px; }
+    }
+
+    .reveal {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 1s ease, transform 1s ease;
+    }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<nav class="nav" id="navbar">
+    <a href="#" class="logo" aria-label="Accueil Polaris RP">
+        <img src="images/polarislogo.png" alt="Logo Polaris RP" class="logo-img">
+        POLARIS<span style="color: var(--accent); font-weight: 400;">.</span>RP
+    </a>
+    
+    <button class="mobile-toggle" id="mobile-toggle" aria-label="Ouvrir le menu">☰</button>
+    
+    <div class="nav-links" id="nav-links">
+        <a href="#vision" class="scroll-link">Vision</a>
+        <a href="#lore" class="scroll-link">Lore</a>
+        <a href="#experience" class="scroll-link">Expérience</a>
+        <a href="#features" class="scroll-link">Systèmes</a>
+        <a href="#faq" class="scroll-link">FAQ</a>
+        <a href="#character" class="scroll-link">Personnage</a>
+        <a href="https://discord.gg/votre-lien-discord" target="_blank" rel="noopener" class="nav-cta discord">Discord</a>
+        <a href="https://polaris-roleplay.gitbook.io/reglement-polaris-rp" target="_blank" rel="noopener" class="nav-cta">Wiki ↗</a>
+    </div>
+</nav>
+
+<header class="hero">
+    <!-- VIDEO DE FOND INTEGREE -->
+    <video class="hero-video" src="images/trailer.mp4" autoplay loop muted playsinline></video>
+    <div class="hero-overlay"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+        <!-- <div class="status-badge">
+            <span class="pulse-dot"></span> Serveur en ligne
+        </div> -->
+        <img src="images/polarislogo.png" alt="" class="hero-logo-mark" aria-hidden="true">
+        <div class="hero-meta">
+            <span>Ver. 2026.04</span>
+            <span>San Andreas / Los Santos</span>
+            <span>Serious RP</span>
+        </div>
+        <h1>San&nbsp;Andreas<br><span class="italic">après minuit.</span></h1>
+        <p class="hero-tagline">
+            Un serveur GTA V né d'une bande d'amis, pour celles et ceux qui voient le roleplay comme un cinéma — pas comme une compétition.
+        </p>
+        <div class="hero-cta-row">
+            <a href="https://tally.so/r/Bzpa8e" target="_blank" rel="noopener" class="btn-primary">
+                <span>→ Postuler à la whitelist</span>
+            </a>
+            <a href="https://discord.gg/votre-lien-discord" target="_blank" rel="noopener" class="btn-primary btn-discord-fill">
+                <span>Rejoindre le Discord</span>
+            </a>
+            <a href="#vision" class="btn-ghost">
+                Découvrir <span class="arrow">↓</span>
+            </a>
+        </div>
+    </div>
+    <div class="side-label">N°01 — POLARIS · 2026</div>
+</header>
+
+<div class="marquee">
+    <div class="marquee-track">
+        <span>Serious Roleplay</span><span class="star"></span>
+        <span>Bienveillance</span><span class="star"></span>
+        <span>Immersion</span><span class="star"></span>
+        <span>San Andreas</span><span class="star"></span>
+        <span>Le Jeu reste un Jeu</span><span class="star"></span>
+        <span>Whitelist</span><span class="star"></span>
+        <span>Serious Roleplay</span><span class="star"></span>
+        <span>Bienveillance</span><span class="star"></span>
+        <span>Immersion</span><span class="star"></span>
+        <span>San Andreas</span><span class="star"></span>
+        <span>Le Jeu reste un Jeu</span><span class="star"></span>
+        <span>Whitelist</span><span class="star"></span>
+    </div>
+</div>
+
+<section class="vision" id="vision">
+    <div class="section-header">
+        <span class="section-num">01 / 08</span>
+        <span class="section-label">Notre Vision</span>
+        <div class="section-divider"></div>
+    </div>
+    <div class="vision-grid">
+        <h2 class="vision-title reveal">L'amusement<br><em>avant tout.</em></h2>
+        <div class="vision-text reveal">
+            <p>Polaris RP est avant tout né d'un <strong>groupe d'amis</strong> passionnés. Pas d'une volonté commerciale, pas d'une course à la popularité. Juste l'envie de partager un espace de jeu où l'on se sent bien.</p>
+            <p>Nous sommes ici pour nous amuser, pas pour nous prendre la tête. La compétition et les conflits hors-jeu n'ont pas leur place ici. Si une scène ne tourne pas en votre faveur, dites-vous que c'est le signe que <strong>le réalisme fonctionne</strong>.</p>
+        </div>
+    </div>
+</section>
+
+<!-- NOUVELLE SECTION LORE OFFICIEL -->
+<section class="lore" id="lore">
+    <div class="section-header">
+        <span class="section-num">02 / 08</span>
+        <span class="section-label">Lore Officiel</span>
+        <div class="section-divider"></div>
+    </div>
+    <div class="exp-row">
+        <div class="exp-text reveal">
+            <div class="exp-num">— TRANSMISSION FÉDÉRALE</div>
+            <h3>Une cité d'avenir<br>sous <em>haute protection.</em></h3>
+            <p>Los Santos est devenue une île d'exception protégée par le gouvernement américain. Présentée comme un modèle de stabilité et de progrès, la ville impose néanmoins des règles strictes pour garantir la sécurité de tous.</p>
+            
+            <ul class="lore-list">
+                <li><strong>Le Mur :</strong> Le nord de l'île est une zone non résidentielle strictement interdite. Un mur sépare physiquement la population des terres du nord. Tout franchissement est illégal.</li>
+                <li><strong>Protocole Sanitaire :</strong> La santé collective est une priorité absolue. Chaque citoyen est soumis à une vaccination hebdomadaire obligatoire.</li>
+                <li><strong>Logistique & Blocus :</strong> L'espace aérien est réglementé et verrouillé. La ville survit en totale autonomie grâce à un pont logistique maritime permanent avec le continent.</li>
+            </ul>
+        </div>
+        <div class="exp-visual">
+            <img src="images/le-mur.png" alt="Le Mur de séparation à Los Santos" loading="lazy">
+            <div class="exp-caption">N°02.A — THE WALL · RESTRICTED AREA</div>
+        </div>
+    </div>
+</section>
+
+<section class="pillars">
+    <div class="section-header">
+        <span class="section-num">03 / 08</span>
+        <span class="section-label">Les Piliers de l'Expérience</span>
+        <div class="section-divider"></div>
+    </div>
+    <div class="pillars-grid">
+        <div class="pillar reveal">
+            <div class="pillar-num">— Pilier 01</div>
+            <svg class="pillar-icon" viewBox="0 0 48 48">
+                <circle cx="24" cy="24" r="20"/>
+                <path d="M24 4 L24 44 M4 24 L44 24"/>
+                <circle cx="24" cy="24" r="6"/>
+            </svg>
+            <h3>Partage<br>& bienveillance</h3>
+            <p>Un espace de divertissement pour des joueurs qui partagent une même vision du RP.</p>
+        </div>
+        <div class="pillar reveal">
+            <div class="pillar-num">— Pilier 02</div>
+            <svg class="pillar-icon" viewBox="0 0 48 48">
+                <path d="M8 38 L8 14 L24 6 L40 14 L40 38 Z"/>
+                <path d="M16 38 L16 24 L32 24 L32 38"/>
+                <circle cx="24" cy="18" r="2"/>
+            </svg>
+            <h3>Le jeu<br>reste un jeu</h3>
+            <p>Pas de compétition, pas de toxicité, pas de dramas hors-jeu.</p>
+        </div>
+        <div class="pillar reveal">
+            <div class="pillar-num">— Pilier 03</div>
+            <svg class="pillar-icon" viewBox="0 0 48 48">
+                <path d="M24 4 L28 18 L42 18 L31 27 L35 41 L24 33 L13 41 L17 27 L6 18 L20 18 Z"/>
+            </svg>
+            <h3>Accepter<br>l'imprévu</h3>
+            <p>Dans la vraie vie, tout ne se déroule pas comme prévu. L'échec fait partie du jeu.</p>
+        </div>
+    </div>
+</section>
+
+<section class="experience" id="experience">
+    <div class="section-header">
+        <span class="section-num">04 / 08</span>
+        <span class="section-label">L'Expérience Polaris</span>
+        <div class="section-divider"></div>
+    </div>
+
+    <div class="exp-row">
+        <div class="exp-text reveal">
+            <div class="exp-num">— 04.A</div>
+            <h3>Une ville <em>vivante,</em><br>pas un décor.</h3>
+            <p>Los Santos, Sandy Shores, Paleto Bay. Chaque quartier a sa tonalité, chaque heure de la nuit raconte autre chose. Ici, vous n'arrivez pas dans une carte — vous arrivez dans une ville où chaque coin de rue a son histoire.</p>
+        </div>
+        <div class="exp-visual">
+            <img src="images/park-aerial.png" alt="Vue aérienne d'un parc à Los Santos" loading="lazy">
+            <div class="exp-caption">N°04.A — Vinewood Hills</div>
+        </div>
+    </div>
+
+    <div class="exp-row">
+        <div class="exp-text reveal">
+            <div class="exp-num">— 04.B</div>
+            <h3>Des conversations<br>qui <em>comptent.</em></h3>
+            <p>Un appel passé à 2h du matin. Un rendez-vous improvisé dans une ruelle. Un deal qui tourne mal. Chaque interaction est une scène — et chaque scène construit l'histoire de votre personnage à long terme.</p>
+        </div>
+        <div class="exp-visual">
+            <img src="images/phone-call.png" alt="Appel téléphonique entre deux personnages" loading="lazy">
+            <div class="exp-caption">N°04.B — Incoming Call</div>
+        </div>
+    </div>
+
+    <div class="exp-row">
+        <div class="exp-text reveal">
+            <div class="exp-num">— 04.C</div>
+            <h3>Des planques,<br>des <em>secrets.</em></h3>
+            <p>Hangars abandonnés, ports désaffectés, entrepôts en bord de mer. Polaris est plein de lieux qui n'attendent que vos histoires — vos cargaisons, vos rencontres, vos disparitions.</p>
+        </div>
+        <div class="exp-visual">
+            <img src="images/warehouse-yacht.png" alt="Hangar industriel avec yacht caché" loading="lazy">
+            <div class="exp-caption">N°04.C — Naval Port · Off-grid</div>
+        </div>
+    </div>
+
+    <div class="exp-row">
+        <div class="exp-text reveal">
+            <div class="exp-num">— 04.D</div>
+            <h3>Un sous-sol<br>qui <em>respire.</em></h3>
+            <p>Trafic, dealers de quartier, plantations clandestines. La pègre de San Andreas vit, négocie, se trahit — et chaque rôle, du petit revendeur au boss, a sa place dans l'écosystème.</p>
+        </div>
+        <div class="exp-visual">
+            <img src="images/weed-dealer.png" alt="Rencontre avec un dealer dans une ruelle" loading="lazy">
+            <div class="exp-caption">N°04.D — Back alley · Davis</div>
+        </div>
+    </div>
+</section>
+
+<section class="features" id="features">
+    <div class="section-header">
+        <span class="section-num">05 / 08</span>
+        <span class="section-label">Fonctionnalités du serveur</span>
+        <div class="section-divider"></div>
+    </div>
+
+    <div class="features-intro">
+        <h2 class="reveal">Des outils <em>pensés</em> pour le RP.</h2>
+        <p class="reveal">Inventaire détaillé, tablettes professionnelles, économie réaliste, métiers profonds. Chaque interface a été conçue pour servir l'immersion — pas pour la casser.</p>
+    </div>
+
+    <div class="features-grid">
+        <div class="feature-card reveal">
+            <div class="feature-image"><img src="images/inventory.png" alt="Système d'inventaire" loading="lazy"></div>
+            <div class="feature-info">
+                <div class="feature-tag">— Inventaire</div>
+                <h4>Chaque objet a son poids.</h4>
+                <p>Système d'inventaire réaliste avec gestion du poids, numéros de série sur les armes, et conteneurs personnels.</p>
+            </div>
+        </div>
+        
+        <div class="feature-card reveal">
+            <div class="feature-image"><img src="images/concession.png" alt="Concession automobile" loading="lazy"></div>
+            <div class="feature-info">
+                <div class="feature-tag">— Concession</div>
+                <h4>Choisissez votre signature.</h4>
+                <p>Concessions automobiles avec personnalisation des couleurs, fiches techniques détaillées et large catalogue de véhicules.</p>
+            </div>
+        </div>
+        
+        <div class="feature-card reveal">
+            <div class="feature-image"><img src="images/police-tablet.png" alt="Tablette de police LSPD" loading="lazy"></div>
+            <div class="feature-info">
+                <div class="feature-tag">— LSPD</div>
+                <h4>La simplicité avant tout.</h4>
+                <p>Tablettes police complètes : rapports d'incidents, gestion des suspects, mandats, registres de véhicules.</p>
+            </div>
+        </div>
+        
+        <div class="feature-card reveal">
+            <div class="feature-image"><img src="images/weed-grow.png" alt="Plantation de cannabis" loading="lazy"></div>
+            <div class="feature-info">
+                <div class="feature-tag">— Métiers illégaux</div>
+                <h4>Faites pousser votre empire.</h4>
+                <p>Cultures personnelles, gestion de la croissance (eau, engrais, santé), récolte et revente. Le crime est une chaîne de production.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="gallery">
+    <div class="section-header">
+        <span class="section-num">— Captures du serveur</span>
+        <span class="section-label">In Polaris We Trust</span>
+        <div class="section-divider"></div>
+    </div>
+
+    <div class="gallery-track">
+        <div class="gallery-item">
+            <img src="images/park-aerial.png" alt="Parc Los Santos" loading="lazy">
+            <div class="gallery-caption"><span class="gallery-caption-num">001</span>VINEWOOD PARK</div>
+        </div>
+        <div class="gallery-item">
+            <img src="images/warehouse-yacht.png" alt="Yacht caché dans un hangar" loading="lazy">
+            <div class="gallery-caption"><span class="gallery-caption-num">002</span>NAVAL PORT</div>
+        </div>
+        <div class="gallery-item">
+            <img src="images/weed-dealer.png" alt="Dealer de quartier" loading="lazy">
+            <div class="gallery-caption"><span class="gallery-caption-num">003</span>DAVIS · 2:14 AM</div>
+        </div>
+        <div class="gallery-item">
+            <img src="images/phone-call.png" alt="Appel téléphonique" loading="lazy">
+            <div class="gallery-caption"><span class="gallery-caption-num">004</span>INCOMING CALL</div>
+        </div>
+        <div class="gallery-item">
+            <img src="images/naval-port.png" alt="Entrée du port naval" loading="lazy">
+            <div class="gallery-caption"><span class="gallery-caption-num">005</span>WRONG WAY</div>
+        </div>
+        <div class="gallery-item">
+            <img src="images/stone-statue.png" alt="Statue à Los Santos" loading="lazy">
+            <div class="gallery-caption"><span class="gallery-caption-num">006</span>DOWNTOWN LS</div>
+        </div>
+        <!-- Dupliqué pour la boucle -->
+        <div class="gallery-item">
+            <img src="images/park-aerial.png" alt="" loading="lazy">
+            <div class="gallery-caption"><span class="gallery-caption-num">001</span>VINEWOOD PARK</div>
+        </div>
+        <div class="gallery-item">
+            <img src="images/warehouse-yacht.png" alt="" loading="lazy">
+            <div class="gallery-caption"><span class="gallery-caption-num">002</span>NAVAL PORT</div>
+        </div>
+        <div class="gallery-item">
+            <img src="images/weed-dealer.png" alt="" loading="lazy">
+            <div class="gallery-caption"><span class="gallery-caption-num">003</span>DAVIS · 2:14 AM</div>
+        </div>
+        <div class="gallery-item">
+            <img src="images/phone-call.png" alt="" loading="lazy">
+            <div class="gallery-caption"><span class="gallery-caption-num">004</span>INCOMING CALL</div>
+        </div>
+        <div class="gallery-item">
+            <img src="images/naval-port.png" alt="" loading="lazy">
+            <div class="gallery-caption"><span class="gallery-caption-num">005</span>WRONG WAY</div>
+        </div>
+        <div class="gallery-item">
+            <img src="images/stone-statue.png" alt="" loading="lazy">
+            <div class="gallery-caption"><span class="gallery-caption-num">006</span>DOWNTOWN LS</div>
+        </div>
+    </div>
+</section>
+
+<section class="stats">
+    <div class="stats-grid">
+        <div class="stat reveal"><div class="stat-num"><em>1</em></div><div class="stat-label">Vision claire</div></div>
+        <div class="stat reveal"><div class="stat-num">∞</div><div class="stat-label">Histoires possibles</div></div>
+        <div class="stat reveal"><div class="stat-num">24/<em>7</em></div><div class="stat-label">Une ville qui vit</div></div>
+        <div class="stat reveal"><div class="stat-num">0</div><div class="stat-label">Tolérance toxicité</div></div>
+    </div>
+</section>
+
+<section class="character" id="character">
+    <div class="section-header">
+        <span class="section-num">06 / 08</span>
+        <span class="section-label">L'Art du Background</span>
+        <div class="section-divider"></div>
+    </div>
+    <p class="character-quote reveal">
+        Votre background est <em>l'âme de votre personnage.</em> Son histoire, son passé, ses cicatrices — ce qui le rend vivant.
+    </p>
+    <div class="character-pillars">
+        <div class="char-card reveal">
+            <div class="char-card-num">— 01</div>
+            <h4>Identité<br>& passé</h4>
+            <p>D'où venez-vous ? Lieu de naissance, éducation, événements marquants qui ont forgé votre caractère.</p>
+        </div>
+        <div class="char-card reveal">
+            <div class="char-card-num">— 02</div>
+            <h4>Motivations</h4>
+            <p>Soif de pouvoir, vengeance, quête de tranquillité. Quels sont vos objectifs à San Andreas ?</p>
+        </div>
+        <div class="char-card reveal">
+            <div class="char-card-num">— 03</div>
+            <h4>Compétences<br>& bagage</h4>
+            <p>Votre passé justifie vos capacités. Un ex-mécanicien bidouillera un moteur ; un ex-militaire gérera autrement le stress.</p>
+        </div>
+        <div class="char-card reveal">
+            <div class="char-card-num">— 04</div>
+            <h4>Cercle social</h4>
+            <p>Famille, amis, ennemis. Vos relations influencent vos choix et créent des dynamiques riches.</p>
+        </div>
+    </div>
+</section>
+
+<section class="faq" id="faq">
+    <div class="section-header">
+        <span class="section-num">07 / 08</span>
+        <span class="section-label">Foire Aux Questions</span>
+        <div class="section-divider"></div>
+    </div>
+    <div class="faq-container">
+        <details class="faq-item reveal">
+            <summary>Comment rejoindre le serveur ?</summary>
+            <p>Il vous suffit de rejoindre notre Discord communautaire, de lire attentivement le règlement et de soumettre votre candidature de Whitelist via notre formulaire. Notre équipe traitera votre demande sous 48h.</p>
+        </details>
+        <details class="faq-item reveal">
+            <summary>Le serveur est-il Pay-to-Win ?</summary>
+            <p>Absolument pas. Aucun avantage en jeu ne peut être acheté avec de l'argent réel. Nous misons sur une économie 100% immersive et équilibrée.</p>
+        </details>
+        <details class="faq-item reveal">
+            <summary>Est-ce que je peux amener mon propre groupe ?</summary>
+            <p>Oui, les projets de groupe (gangs, entreprises, etc.) sont les bienvenus. Cependant, chaque membre devra valider sa Whitelist individuellement, et le projet devra être validé par le staff.</p>
+        </details>
+    </div>
+</section>
+
+<section class="join" id="join">
+    <div class="join-bg-image"></div>
+    <div class="join-content">
+        <div class="join-eyebrow reveal">— Whitelist · 2026 —</div>
+        <h2 class="reveal">Le nord <em>vous attend.</em></h2>
+        <p class="join-sub reveal">
+            Postulez à la whitelist. Construisez votre personnage. Rejoignez la ville sur notre Discord.
+        </p>
+        <div class="join-buttons reveal">
+            <a href="https://discord.gg/votre-lien-discord" target="_blank" rel="noopener" class="btn-primary btn-discord-fill">
+                <span>→ Rejoindre le Discord</span>
+            </a>
+            <a href="https://tally.so/r/Bzpa8e" target="_blank" rel="noopener" class="btn-ghost">
+                Postuler à la whitelist
+            </a>
+            <a href="https://polaris-roleplay.gitbook.io/reglement-polaris-rp" target="_blank" rel="noopener" class="btn-ghost">
+                Lire le wiki <span class="arrow">↗</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="footer-top">
+        <div class="footer-brand">
+            <div class="footer-brand-row">
+                <img src="images/polarislogo.png" alt="Logo Polaris RP" class="footer-logo-img">
+                <h3>POLARIS<span style="color: var(--accent);">.</span>RP</h3>
+            </div>
+            <p>Un serveur GTA V Serious Roleplay basé à San Andreas. Né d'une bande d'amis, ouvert à celles et ceux qui partagent notre vision du RP.</p>
+        </div>
+        <div class="footer-col">
+            <h5>Naviguer</h5>
+            <ul>
+                <li><a href="#vision" class="scroll-link">Vision</a></li>
+                <li><a href="#lore" class="scroll-link">Lore</a></li>
+                <li><a href="#experience" class="scroll-link">Expérience</a></li>
+                <li><a href="#features" class="scroll-link">Fonctionnalités</a></li>
+                <li><a href="#character" class="scroll-link">Personnage</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h5>Ressources</h5>
+            <ul>
+                <li><a href="https://polaris-roleplay.gitbook.io/reglement-polaris-rp" target="_blank" rel="noopener">Wiki & règlement</a></li>
+                <li><a href="https://tally.so/r/Bzpa8e" target="_blank" rel="noopener">Formulaire whitelist</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h5>Communauté</h5>
+            <ul>
+                <li><a href="https://discord.gg/votre-lien-discord" target="_blank" rel="noopener" style="color: var(--discord);">Discord Officiel</a></li>
+                <li><a href="#">Support</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span>© 2026 Polaris RP — Tous droits réservés</span>
+        <span>Made with ☆ in San Andreas</span>
+    </div>
+</footer>
+
+<a href="#" class="back-to-top" id="backToTop" aria-label="Retour en haut">↑</a>
+
+<script>
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    document.querySelectorAll('a.scroll-link, a[href^="#"]').forEach(a => {
+        a.addEventListener('click', (e) => {
+            const target = document.querySelector(a.getAttribute('href'));
+            if (target && a.getAttribute('href') !== '#') {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+
+    const mobileToggle = document.getElementById('mobile-toggle');
+    const navLinks = document.getElementById('nav-links');
+    
+    mobileToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        mobileToggle.innerText = navLinks.classList.contains('active') ? '✕' : '☰';
+    });
+
+    const navbar = document.getElementById('navbar');
+    const backToTop = document.getElementById('backToTop');
+    
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+        
+        if (window.scrollY > 500) {
+            backToTop.classList.add('visible');
+        } else {
+            backToTop.classList.remove('visible');
+        }
+    });
+</script>
+
+</body>
+</html>
